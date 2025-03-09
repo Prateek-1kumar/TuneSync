@@ -1,9 +1,11 @@
+import LikeButton from '@/components/LikeButton/LikeBt'
 import LyricsDisplay from '@/components/LyricsDisplay'
 import LyricsToggle from '@/components/LyricsToggle'
 import { MovingText } from '@/components/MovingText'
 import { PlayerControls } from '@/components/PlayerControls'
 import { PlayerProgressBar } from '@/components/PlayerProgressbar'
 import { PlayerRepeatToggle } from '@/components/PlayerRepeatToggle'
+import { PlayerVolumeBar } from '@/components/PlayerVolumeBar'
 import { PlaylistsList } from '@/components/PlaylistsList'
 import PlaylistToggle from '@/components/PlaylistToggle'
 import { unknownTrackImageUri } from '@/constants/images'
@@ -15,14 +17,22 @@ import { defaultStyles, utilsStyles } from '@/styles'
 import { MaterialIcons } from '@expo/vector-icons'
 import BottomSheet from '@gorhom/bottom-sheet'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
 	showRoutePicker,
 	useAirplayConnectivity,
 	useAvAudioSessionRoutes,
 	useExternalPlaybackAvailability,
 } from 'react-airplay'
-import { ActivityIndicator, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import {
+	ActivityIndicator,
+	Dimensions,
+	PixelRatio,
+	StyleSheet,
+	Text,
+	useWindowDimensions,
+	View,
+} from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Animated, { useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -30,6 +40,8 @@ import { useActiveTrack } from 'react-native-track-player'
 const PlayerScreen = () => {
 	const activeTrack = useActiveTrack()
 	const { height } = useWindowDimensions()
+	const screenHeightDp = Dimensions.get('screen').height
+	const screenHeightPx = PixelRatio.getPixelSizeForLayoutSize(screenHeightDp)
 	const { imageColors } = usePlayerBackground(activeTrack?.artwork ?? unknownTrackImageUri)
 	const modalRef = useRef<BottomSheet>(null)
 	const { top, bottom } = useSafeAreaInsets()
@@ -45,6 +57,9 @@ const PlayerScreen = () => {
 	const isAirplayConnected = useAirplayConnectivity()
 	const isExternalPlaybackAvailable = useExternalPlaybackAvailability()
 	const routes = useAvAudioSessionRoutes()
+	const isSmallScreen = useMemo(() => {
+		return screenHeightPx < 1600
+	}, [screenHeightPx])
 	useEffect(() => {
 		if (!activeTrack?.formatedTitle) return
 
@@ -56,7 +71,7 @@ const PlayerScreen = () => {
 			<View
 				style={[
 					defaultStyles.container,
-					{ justifyContent: 'center', backgroundColor: 'transparent' },
+					{ justifyContent: 'center', backgroundColor: colors.background },
 				]}
 			>
 				<ActivityIndicator color={colors.icon} />
@@ -72,7 +87,14 @@ const PlayerScreen = () => {
 			<View style={styles.overlayContainer}>
 				<DismissPlayerSymbol />
 
-				<View style={{ flex: 1, marginTop: top + 70, marginBottom: bottom }}>
+				<View
+					style={{
+						flex: 1,
+
+						marginTop: top + 50,
+						marginBottom: bottom + 20,
+					}}
+				>
 					<Animated.View
 						style={[
 							styles.artworkImageContainer,
@@ -94,7 +116,6 @@ const PlayerScreen = () => {
 						<Animated.View
 							style={[
 								styles.artworkTitleContainer,
-								,
 								{
 									opacity: lyricsModeTitleOpacity,
 									marginLeft: 20,
@@ -131,9 +152,21 @@ const PlayerScreen = () => {
 					</Animated.View>
 
 					<View style={{ flex: 1, justifyContent: 'flex-end' }}>
-						{showLyrics && <LyricsDisplay lyrics={lyrics}></LyricsDisplay>}
+						{showLyrics &&
+							(lyrics.length > 0 ? (
+								<LyricsDisplay lyrics={lyrics}></LyricsDisplay>
+							) : (
+								<LyricsDisplay
+									lyrics={[
+										{
+											line: 'Loading',
+											time: 0,
+										},
+									]}
+								></LyricsDisplay>
+							))}
 
-						<View style={{ flexDirection: 'column' }}>
+						<View style={{ flexDirection: 'column', marginTop: 100 }}>
 							<Animated.View
 								style={{
 									height: titleHeight,
@@ -155,29 +188,37 @@ const PlayerScreen = () => {
 											animationThreshold={30}
 											style={styles.trackTitleText}
 										/>
+										{activeTrack.artist && (
+											<Text
+												numberOfLines={1}
+												style={[
+													styles.trackArtistText,
+													{ marginTop: 6, display: showLyrics ? 'none' : 'flex' },
+												]}
+											>
+												{activeTrack.artist}
+											</Text>
+										)}
 									</View>
+
+									<LikeButton></LikeButton>
 								</Animated.View>
 
 								{/* Track artist */}
-								{activeTrack.artist && (
-									<Text
-										numberOfLines={1}
-										style={[
-											styles.trackArtistText,
-											{ marginTop: 6, display: showLyrics ? 'none' : 'flex' },
-										]}
-									>
-										{activeTrack.artist}
-									</Text>
-								)}
 							</Animated.View>
 
 							<PlayerProgressBar style={{ marginTop: showLyrics ? 10 : 26 }} />
 
-							<PlayerControls style={{ marginTop: 40 }} />
+							<PlayerControls
+								style={{
+									marginVertical: isSmallScreen ? 20 : 40,
+									marginBottom: isSmallScreen ? 0 : 40,
+								}}
+							/>
+							{!showLyrics && !isSmallScreen && (
+								<PlayerVolumeBar style={{ marginTop: 'auto', marginBottom: 30 }} />
+							)}
 						</View>
-
-						{/* <PlayerVolumeBar style={{ marginTop: 'auto', marginBottom: 30 }} /> */}
 
 						<View style={utilsStyles.centeredRow}>
 							<PlayerRepeatToggle size={30} style={{ marginBottom: 6 }} />
@@ -218,6 +259,7 @@ const PlayerScreen = () => {
 							<PlaylistToggle
 								isPlaylistEnable={false}
 								onPress={() => {
+									// @ts-expect-error-error
 									modalRef.current.snapToIndex(2)
 								}}
 							/>

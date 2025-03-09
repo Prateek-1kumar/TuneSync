@@ -1,9 +1,31 @@
+/*
+ * @Author: zhen qian xhdp123@126.com
+ * @Date: 2024-11-25 13:33:55
+ * @LastEditors: zhen qian xhdp123@126.com
+ * @LastEditTime: 2025-03-10 04:39:34
+ * @FilePath: /TuneSync/src/components/BottomUpPanel/index.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Modal from 'react-native-modal'
 
-const BottomUpPanel = ({ isVisible, onClose, children, header, height = 250 }) => {
+interface BottomUpPanelProps {
+	isVisible: boolean
+	onClose: () => void
+	children: React.ReactNode
+	header?: React.ReactNode // 添加 header 的类型定义
+	height?: number // 添加 height 的类型定义
+}
+
+const BottomUpPanel: React.FC<BottomUpPanelProps> = ({
+	isVisible,
+	onClose,
+	children,
+	header,
+	height = 250,
+}) => {
 	return (
 		<Modal isVisible={isVisible} onBackdropPress={onClose} backdropOpacity={0} style={styles.modal}>
 			<View style={{ ...styles.panel, minHeight: height }}>

@@ -41,7 +41,7 @@ export const PlaylistsList = () => {
 	)
 
 	const handleClick = useCallback(
-		async (track) => {
+		async (track: any) => {
 			const queue = await TrackPlayer.getQueue()
 			const index = queue.findIndex((el) => el.basename === track.basename)
 			// 1. 先更新UI状态，给用户立即的视觉反馈（比如动画）

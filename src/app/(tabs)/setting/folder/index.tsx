@@ -25,7 +25,7 @@ const GridView = () => {
 			const dirs = indexingList
 
 			setPinnedList(
-				(dirs || [])?.map((el: { dir: any; config: any; from: any }) => {
+				(dirs || [])?.map((el: { basename: string; dir: any; config: any; from: any }) => {
 					return {
 						title: el?.basename || el.dir.split('/').pop(),
 						filename: el.dir,
@@ -62,7 +62,7 @@ const GridView = () => {
 		},
 		[setClient],
 	)
-	const renderItem = ({ item }) => {
+	const renderItem = ({ item }: any) => {
 		if (item.title === 'Add source') {
 			return (
 				<TouchableRipple

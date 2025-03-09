@@ -9,29 +9,26 @@ import TrackPlayer, { useProgress } from 'react-native-track-player'
 
 export const PlayerProgressBar = memo(({ style }: ViewProps) => {
 	const { duration, position } = useProgress(250)
-
 	const isSliding = useSharedValue(false)
 	const progress = useSharedValue(0)
 	const min = useSharedValue(0)
 	const max = useSharedValue(1)
 	const thumbScaleY = useSharedValue(1) // 用来控制缩放效果
 	const thumbScaleX = useSharedValue(1) // 用来控制缩放效果
-
 	const trackElapsedTime = formatSecondsToMinutes(position)
 	const trackRemainingTime = formatSecondsToMinutes(duration - position)
 
 	if (!isSliding.value) {
 		progress.value = duration > 0 ? position / duration : 0
 	}
-	console.log('isSliding', isSliding)
-
 	return (
 		<View style={[style]}>
 			<Slider
+				//@ts-expect-error-error
 				style={{
 					transform: [{ scaleY: thumbScaleY }, { scaleX: thumbScaleX }], // 控制 thumb 的缩放
 				}}
-				panHitSlop={{ top: 50, bottom: 100, left: 50, right: 50 }} // 扩展触
+				panHitSlop={{ top: 30, bottom: 30, left: 50, right: 50 }} // 扩展触
 				progress={progress}
 				minimumValue={min}
 				maximumValue={max}

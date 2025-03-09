@@ -53,7 +53,7 @@ export const PlayPauseButton = memo(({ style, iconSize = 48 }: PlayerButtonProps
 	)
 })
 
-export const SkipToNextButton = memo(({ iconSize = 30 }) => {
+export const SkipToNextButton = memo(({ iconSize = 30 }: { iconSize?: number }) => {
 	const scaleAnim = useSharedValue(1)
 	const offset = useRef(0)
 	const animatedStyle = useAnimatedStyle(() => {

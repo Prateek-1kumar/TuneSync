@@ -163,7 +163,7 @@ const ResourceManage = () => {
 							const pendingRemove = RNFS.DocumentDirectoryPath + '/' + child
 
 							setIndexingList(
-								indexingList.filter((indexItem) => {
+								indexingList.filter((indexItem: any) => {
 									return indexItem.dir !== child
 								}),
 							)

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import TrackPlayer, { useProgress } from 'react-native-track-player'
+import Line from './line'
 
 /** 单句歌词 */
 type LyricLine = {
@@ -77,7 +78,6 @@ const CharColoredLine: React.FC<{
 }> = ({ fontSize, isFinished, transY, lyric, lineProgress, isActiveLine, onPress }) => {
 	// 将一句拆分为字符数组
 	const chars = lyric.line.split('')
-	const totalChars = chars.length
 	const animatedStyle = {
 		transform: [
 			{
@@ -98,31 +98,15 @@ const CharColoredLine: React.FC<{
 						},
 					]}
 				>
-					{chars.map((char, i) => {
-						// 如果不是当前行，progress=0 => 不高亮；如果是当前行，计算真实进度
-						if (!isActiveLine) {
-							return (
-								<Text key={`char-${i}`} style={{ color: '#888' }}>
-									{char}
-								</Text>
-							)
-						}
-
-						// 计算出该字符的“局部进度”
-						// 例如 lineProgress=0.3, total=10 => 0.3*10=3 => 第 0~2 字基本全白，第 3~4 在过渡
-						const floatIndex = lineProgress * totalChars
-						const distance = floatIndex - i
-
-						// 做一个 clamp + ease 让颜色变更更平滑
-						const localProgress = easeInOutQuad(Math.min(Math.max(distance, 0), 1))
-						const color = interpolateGrayToWhite(localProgress)
-
-						return (
-							<Text key={`char-${i}`} style={{ color: color }}>
-								{char}
-							</Text>
-						)
-					})}
+					{!isActiveLine ? (
+						<Text key={`char-todo`} style={{ color: '#888' }}>
+							{chars}
+						</Text>
+					) : (
+						<Text key={`char-done`} style={{ color: 'white' }}>
+							{chars}
+						</Text>
+					)}
 				</Text>
 			</Animated.View>
 		</TouchableOpacity>
@@ -144,7 +128,7 @@ const LyricsDisplay: React.FC<LyricsDisplayProps> = ({
 	const transYs = useRef(lyrics.map(() => new Animated.Value(0)))
 
 	// 使用 useProgress 获取更频繁的播放时间更新（这里每16.67ms更新一次）
-	const { position } = useProgress(refreshRate ?? 33)
+	const { position } = useProgress(refreshRate ?? 250)
 	useEffect(() => {
 		return () => {
 			// 停止所有动画
@@ -237,16 +221,26 @@ const LyricsDisplay: React.FC<LyricsDisplayProps> = ({
 	const renderItem = ({ item, index }: { item: LyricLine; index: number }) => {
 		// 如果不是当前行，progress=0；如果是当前行，计算真实进度
 		const isActiveLine = index === currentIndex
-		const lineProgress = isActiveLine ? getLineProgress(lyrics, index, position) : 0
+		// const lineProgress = isActiveLine ? getLineProgress(lyrics, index, position) : 0
+
 		const isFinished = index <= currentIndex
 
-		return (
+		return isActiveLine ? (
+			<Line
+				isFinished={isFinished}
+				transY={transYs.current[index]}
+				startTime={item.time}
+				endTime={lyrics?.[index + 1]?.time || item.time + 2}
+				lyric={item.line}
+				currentTime={position}
+			></Line>
+		) : (
 			<CharColoredLine
 				fontSize={fontSize ?? 20}
 				isFinished={isFinished}
 				transY={transYs.current[index]}
 				lyric={item}
-				lineProgress={lineProgress}
+				lineProgress={1}
 				isActiveLine={isActiveLine}
 				onPress={() => handlePressLine(item.time, index)}
 			/>
@@ -275,11 +269,18 @@ const LyricsDisplay: React.FC<LyricsDisplayProps> = ({
 					onScroll={() => {}}
 					ref={flatListRef}
 					data={lyrics}
+					removeClippedSubviews={true}
+					initialNumToRender={10}
+					maxToRenderPerBatch={1}
 					keyExtractor={(_, i) => String(i)}
 					renderItem={renderItem}
 					getItemLayout={getItemLayout}
 					showsVerticalScrollIndicator={false}
-					contentContainerStyle={{ paddingTop: 0, paddingVertical: 80, paddingBottom: 450 }}
+					contentContainerStyle={{
+						paddingVertical: 80,
+						paddingTop: 20,
+						paddingBottom: 250,
+					}}
 					onScrollBeginDrag={handleScrollBeginDrag}
 					onScrollEndDrag={handleScrollEndDrag}
 				/>

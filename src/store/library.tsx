@@ -41,6 +41,15 @@ interface IndexState {
 		current: string
 	}) => void
 }
+export const useFavorites = () => {
+	const favorites = useLibraryStore((state) => state.tracks.filter((track) => track.rating === 1))
+	const toggleTrackFavorite = useLibraryStore((state) => state.toggleTrackFavorite)
+
+	return {
+		favorites,
+		toggleTrackFavorite,
+	}
+}
 export const useLibraryStore = create<LibraryState>()(
 	persist(
 		(set) => {
@@ -419,11 +428,11 @@ export const useSetting = () => {
 			title: t('setting.language'),
 			icon: <MaterialIcons name="language" size={24} color="#E76F51" />,
 		},
-		{
-			id: 'cache',
-			title: t('setting.cacheManagement') || 'Cache',
-			icon: <MaterialIcons name="cached" size={24} color="#E76F51" />,
-		},
+		// {
+		// 	id: 'cache',
+		// 	title: t('setting.cacheManagement') || 'Cache',
+		// 	icon: <MaterialIcons name="cached" size={24} color="#E76F51" />,
+		// },
 		{
 			id: 'middleware',
 			title: t('setting.middlewareManagement') || 'Middleware',

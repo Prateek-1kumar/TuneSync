@@ -2,19 +2,20 @@
  * @Author: zhen qian xhdp123@126.com
  * @Date: 2025-01-24 22:54:46
  * @LastEditors: zhen qian xhdp123@126.com
- * @LastEditTime: 2025-03-07 03:20:52
+ * @LastEditTime: 2025-03-09 18:51:43
  * @FilePath: /TuneSync/src/components/FloatingPlayer.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+
 import { PlayPauseButton, SkipToNextButton } from '@/components/PlayerControls'
 import { unknownTrackImageUri } from '@/constants/images'
-
 import { defaultStyles } from '@/styles'
 import { useRouter } from 'expo-router'
 import { StyleSheet, TouchableOpacity, View, ViewProps } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useActiveTrack } from 'react-native-track-player'
 import { MovingText } from './MovingText'
+
 type FloatingPlayerProps = {
 	simpplifyMode?: boolean
 } & ViewProps
@@ -48,7 +49,7 @@ export const FloatingPlayer = ({ style, simpplifyMode }: FloatingPlayerProps) =>
 				<View style={styles.trackTitleContainer}>
 					<MovingText
 						style={styles.trackTitle}
-						text={`${displayedTrack?.formatedTitle} - ${displayedTrack?.artist || ''}`}
+						text={`${displayedTrack?.formatedTitle ?? displayedTrack?.title}  ${displayedTrack?.artist || ''}`}
 						animationThreshold={simpplifyMode ? 10 : 25}
 					/>
 				</View>

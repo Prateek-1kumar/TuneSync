@@ -17,14 +17,14 @@ export default function MusicScraperDarkScreen() {
 	const totalArtists = artists.length
 	const { t } = useTranslation()
 	// 任务列表项
-	const renderTaskItem = ({ item }) => (
+	const renderTaskItem = ({ item }: any) => (
 		<View style={styles.taskItem}>
 			<Text style={styles.taskName}>{item.name}</Text>
 			<Text style={styles.taskStatus}>
-				状态: {item.status}{' '}
+				Status: {item.status}{' '}
 				{item.status !== 'starting' && (
 					<Text>
-						{'| 剩余任务: '} {item.progress}
+						{'| Remaining Tasks: '} {item.progress}
 					</Text>
 				)}
 			</Text>
@@ -32,33 +32,33 @@ export default function MusicScraperDarkScreen() {
 	)
 
 	// 日志列表项
-	const renderLogItem = ({ item }) => {
-		const { type, body } = item
+	// const renderLogItem = ({ item }) => {
+	// 	const { type, body } = item
 
-		let borderColor = ''
-		switch (type) {
-			case 'normal':
-				borderColor = 'white'
-				break
-			case 'error':
-				borderColor = 'red'
-				break
-			case 'warning':
-				borderColor = 'yellow'
-				break
-			case 'success':
-				borderColor = '#4CAF50'
-				break
-		}
-		return (
-			<View style={[styles.logItem, { borderLeftColor: borderColor }]}>
-				<Text style={styles.logContent}>{body}</Text>
-			</View>
-		)
-	}
+	// 	let borderColor = ''
+	// 	switch (type) {
+	// 		case 'normal':
+	// 			borderColor = 'white'
+	// 			break
+	// 		case 'error':
+	// 			borderColor = 'red'
+	// 			break
+	// 		case 'warning':
+	// 			borderColor = 'yellow'
+	// 			break
+	// 		case 'success':
+	// 			borderColor = '#4CAF50'
+	// 			break
+	// 	}
+	// 	return (
+	// 		<View style={[styles.logItem, { borderLeftColor: borderColor }]}>
+	// 			<Text style={styles.logContent}>{body}</Text>
+	// 		</View>
+	// 	)
+	// }
 
 	// 单个统计卡片
-	const StatBox = ({ label, value }) => (
+	const StatBox = ({ label, value }: any) => (
 		<View style={styles.statBox}>
 			<Text style={styles.statLabel}>{label}</Text>
 			<Text style={styles.statValue}>{value}</Text>
