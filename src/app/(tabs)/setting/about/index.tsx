@@ -41,7 +41,7 @@ const AboutPage = () => {
 
 				<View style={styles.option}>
 					<Text style={styles.optionText}>{t('about.version')}</Text>
-					<Text style={styles.optionValue}>0.1.0</Text>
+					<Text style={styles.optionValue}>1.0.2</Text>
 				</View>
 
 				{/* 跳转到 GitHub Issues */}

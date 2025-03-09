@@ -64,6 +64,7 @@
 		"react-native-tab-view": "4.0.5",
 		"react-native-track-player": "^4.1.1",
 		"react-native-vector-icons": "^10.1.0",
+		"react-native-version-check": "^3.4.7",
 		"react-native-view-shot": "^4.0.3",
 		"react-native-volume-manager": "^2.0.8",
 		"rn-sliding-up-panel": "^2.4.6",

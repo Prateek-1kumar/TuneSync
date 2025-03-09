@@ -1,5 +1,6 @@
 import { FloatingPlayer } from '@/components/FloatingPlayer'
 import ReanimatedCarousel from '@/components/TracksList/CardView'
+import UpdateCheck from '@/components/UpdateCheck'
 import { colors, fontSize } from '@/constants/tokens'
 import { useIsLandscape } from '@/hooks/useIsLandcape'
 import { useShouldUpdate } from '@/hooks/useShouldUpdate'
@@ -111,6 +112,7 @@ const TabsNavigation = () => {
 							bottom: estimatedTabBarHeight,
 						}}
 					/>
+					<UpdateCheck></UpdateCheck>
 				</>
 			)}
 		</Animated.View>
