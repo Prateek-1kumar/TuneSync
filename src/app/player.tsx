@@ -216,7 +216,7 @@ const PlayerScreen = () => {
 								}}
 							/>
 							{!showLyrics && !isSmallScreen && (
-								<PlayerVolumeBar style={{ marginTop: 'auto', marginBottom: 30 }} />
+								<PlayerVolumeBar style={{ marginTop: 'auto', marginBottom: 'auto' }} />
 							)}
 						</View>
 
