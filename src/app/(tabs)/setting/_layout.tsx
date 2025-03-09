@@ -86,6 +86,7 @@ const PlaylistsScreenLayout = () => {
 						headerTintColor: colors.primary,
 					}}
 				/>
+
 				<Stack.Screen
 					name="folder/index"
 					options={{
@@ -138,6 +139,17 @@ const PlaylistsScreenLayout = () => {
 					name="folder/webdav/[nest]"
 					options={{
 						headerTitle: t('setting.folder'),
+						headerBackVisible: true,
+						headerStyle: {
+							backgroundColor: colors.background,
+						},
+						headerTintColor: colors.primary,
+					}}
+				/>
+				<Stack.Screen
+					name="Lyrics/index"
+					options={{
+						headerTitle: '',
 						headerBackVisible: true,
 						headerStyle: {
 							backgroundColor: colors.background,

@@ -1,3 +1,4 @@
+import { useLyricsSettingStore } from '@/store/lyrics'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import TrackPlayer, { useProgress } from 'react-native-track-player'
@@ -126,7 +127,7 @@ const LyricsDisplay: React.FC<LyricsDisplayProps> = ({
 	const manualScrollTimeout = useRef<NodeJS.Timeout | null>(null)
 	const timeRef = useRef<NodeJS.Timeout | null>(null)
 	const transYs = useRef(lyrics.map(() => new Animated.Value(0)))
-
+	const { syncMode } = useLyricsSettingStore()
 	// 使用 useProgress 获取更频繁的播放时间更新（这里每16.67ms更新一次）
 	const { position } = useProgress(refreshRate ?? 250)
 	useEffect(() => {
@@ -225,7 +226,7 @@ const LyricsDisplay: React.FC<LyricsDisplayProps> = ({
 
 		const isFinished = index <= currentIndex
 
-		return isActiveLine ? (
+		return isActiveLine && syncMode ? (
 			<Line
 				isFinished={isFinished}
 				transY={transYs.current[index]}

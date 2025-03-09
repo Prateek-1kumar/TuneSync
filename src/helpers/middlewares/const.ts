@@ -1,8 +1,8 @@
 /*
  * @Author: Zhen Qian zqian15@asu.edu
  * @Date: 2024-12-24 15:15:35
- * @LastEditors: Zhen Qian zqian15@asu.edu
- * @LastEditTime: 2025-02-19 16:20:49
+ * @LastEditors: zhen qian xhdp123@126.com
+ * @LastEditTime: 2025-03-10 05:55:36
  * @FilePath: /TuneSync/src/helpers/middlewares/const.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -51,6 +51,7 @@ export const middlewareRegistry: MiddlewareEntry[] = [
 				album: true,
 				artist: true,
 				releaseDate: true,
+				title: true,
 			},
 		},
 	},
@@ -64,11 +65,12 @@ export const middlewareRegistry: MiddlewareEntry[] = [
 		config: {
 			targets: { mp3: false, flac: true, others: false },
 			tasks: {
-				description: false,
-				artwork: false,
-				album: false,
-				artist: false,
-				releaseDate: false,
+				description: true,
+				artwork: true,
+				album: true,
+				artist: true,
+				releaseDate: true,
+				title: true,
 			},
 		},
 	},

@@ -428,11 +428,11 @@ export const useSetting = () => {
 			title: t('setting.language'),
 			icon: <MaterialIcons name="language" size={24} color="#E76F51" />,
 		},
-		// {
-		// 	id: 'cache',
-		// 	title: t('setting.cacheManagement') || 'Cache',
-		// 	icon: <MaterialIcons name="cached" size={24} color="#E76F51" />,
-		// },
+		{
+			id: 'lyrics',
+			title: t('setting.lyrics') || 'Lyrics',
+			icon: <MaterialIcons name="comment" size={24} color="#E76F51" />,
+		},
 		{
 			id: 'middleware',
 			title: t('setting.middlewareManagement') || 'Middleware',

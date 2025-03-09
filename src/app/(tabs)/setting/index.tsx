@@ -1,8 +1,8 @@
 /*
  * @Author: Zhen Qian zqian15@asu.edu
  * @Date: 2024-12-24 15:15:35
- * @LastEditors: Zhen Qian zqian15@asu.edu
- * @LastEditTime: 2025-02-20 03:26:46
+ * @LastEditors: zhen qian xhdp123@126.com
+ * @LastEditTime: 2025-03-10 05:24:31
  * @FilePath: /TuneSync/src/app/(tabs)/setting/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -42,6 +42,9 @@ const SettingScreen = () => {
 				break
 			case 'middleware':
 				router.push(`/(tabs)/setting/middleware`)
+				break
+			case 'lyrics':
+				router.push(`/(tabs)/setting/Lyrics`)
 				break
 		}
 	}

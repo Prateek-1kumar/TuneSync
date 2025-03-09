@@ -49,6 +49,7 @@
 		"search": "在歌手中查找"
 	},
 	"setting": {
+		"lyrics": "歌词",
 		"header": "设置",
 		"addSource": "添加数据源",
 		"local": "本地",

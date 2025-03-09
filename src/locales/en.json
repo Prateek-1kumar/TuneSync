@@ -49,6 +49,7 @@
 		"search": "Search in Artists"
 	},
 	"setting": {
+		"lyrics": "Lyrics",
 		"header": "Settings",
 		"addSource": "Add Source",
 		"local": "Local",
