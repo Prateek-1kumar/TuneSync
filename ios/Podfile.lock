@@ -1049,6 +1049,8 @@ PODS:
   - react-native-track-player (4.1.1):
     - React-Core
     - SwiftAudioEx (= 1.1.0)
+  - react-native-version-check (3.4.7):
+    - React-Core
   - react-native-view-shot (4.0.3):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1334,6 +1336,7 @@ DEPENDENCIES:
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-track-player (from `../node_modules/react-native-track-player`)
+  - react-native-version-check (from `../node_modules/react-native-version-check`)
   - react-native-view-shot (from `../node_modules/react-native-view-shot`)
   - react-native-volume-manager (from `../node_modules/react-native-volume-manager`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
@@ -1505,6 +1508,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-track-player:
     :path: "../node_modules/react-native-track-player"
+  react-native-version-check:
+    :path: "../node_modules/react-native-version-check"
   react-native-view-shot:
     :path: "../node_modules/react-native-view-shot"
   react-native-volume-manager:
@@ -1642,6 +1647,7 @@ SPEC CHECKSUMS:
   react-native-pager-view: bddb0e0f89fc5584d5cfbbc0fa71aa7d5746ddc4
   react-native-safe-area-context: bf9d9d58f0f6726d4a6257088044c2595017579d
   react-native-track-player: 6dc2e2633265704b8ab6d8124b80239d4ed1f911
+  react-native-version-check: c7b4269cd18781b51009fa4b5a8ad9ab5131ce6f
   react-native-view-shot: 60ef9cebe3f920d3a22747af075240172098a652
   react-native-volume-manager: cdd3c3857158c1df7b9fbea071a9946395cee06c
   React-nativeconfig: b4d4e9901d4cabb57be63053fd2aa6086eb3c85f

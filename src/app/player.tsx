@@ -166,7 +166,7 @@ const PlayerScreen = () => {
 								></LyricsDisplay>
 							))}
 
-						<View style={{ flexDirection: 'column', marginTop: 100 }}>
+						<View style={{ flexDirection: 'column', marginTop: 20 }}>
 							<Animated.View
 								style={{
 									height: titleHeight,

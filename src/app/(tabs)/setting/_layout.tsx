@@ -147,9 +147,9 @@ const PlaylistsScreenLayout = () => {
 					}}
 				/>
 				<Stack.Screen
-					name="Lyrics/index"
+					name="lyrics/index"
 					options={{
-						headerTitle: '',
+						headerTitle: 'Lyrics',
 						headerBackVisible: true,
 						headerStyle: {
 							backgroundColor: colors.background,
