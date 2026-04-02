@@ -29,13 +29,15 @@ export const useQueueStore = create<QueueStore>()(
 			},
 			batchUpdateQueue: (data: any[]) => {
 				set((state) => {
-					const queue = JSON.parse(
-						JSON.stringify(state?.queueListWithContent || { default: [] }),
+					const queue = structuredClone(
+						state?.queueListWithContent || { default: [] },
 					) as QueueListWithContent
 					data.map((el) => {
 						const id = el.title
 						const targetIndex = queue['default'].findIndex((el) => el.title === id)
-						queue['default'][targetIndex] = { ...queue['default'][targetIndex], ...el }
+						if (targetIndex > -1) {
+							queue['default'][targetIndex] = { ...queue['default'][targetIndex], ...el }
+						}
 					})
 					return {
 						queueListWithContent: queue,
@@ -44,8 +46,8 @@ export const useQueueStore = create<QueueStore>()(
 			},
 			updateQueue: (id: string, content: Partial<Queue>) => {
 				return set((state) => {
-					const queue = JSON.parse(
-						JSON.stringify(state?.queueListWithContent || { default: [] }),
+					const queue = structuredClone(
+						state?.queueListWithContent || { default: [] },
 					) as QueueListWithContent
 
 					const targetIndex = queue['default'].findIndex((el) => el.title === id)

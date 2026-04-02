@@ -53,7 +53,7 @@ export const TracksList = memo(
 						}
 						TrackPlayer.play()
 					} catch (error) {
-						console.error('Error while trying to play track:', error)
+						// error playing track
 					} finally {
 						setLoadingTrackId(null)
 					}

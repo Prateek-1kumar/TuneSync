@@ -26,11 +26,11 @@ const App = () => {
 	const loadQueue = useCallback(async () => {
 		try {
 			const queue = queueListWithContent.default
-			const activeTrackIndex = queue.findIndex((el) => el.basename === activeTrack) || 0
+			const activeTrackIndex = queue.findIndex((el) => el.title === activeTrack) || 0
 			await TrackPlayer.setQueue(queue)
 			await TrackPlayer.skip(activeTrackIndex)
 		} catch (error) {
-			console.log('error', error)
+			// error loading queue
 		}
 	}, [activeTrack, queueListWithContent.default])
 

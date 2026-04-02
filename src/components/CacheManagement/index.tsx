@@ -47,7 +47,7 @@ const CacheManagement = () => {
 					Alert.alert('权限未授予', '无法访问存储，缓存管理功能可能无法正常工作')
 				}
 			} catch (err) {
-				console.warn(err)
+				// permission error
 			}
 		}
 	}
@@ -70,7 +70,7 @@ const CacheManagement = () => {
 
 			setCacheSize(Number((totalSize / (1024 * 1024)).toFixed(2)))
 		} catch (error) {
-			console.error('计算缓存大小时出错：', error)
+			// error calculating cache size
 		}
 	}
 
@@ -99,7 +99,6 @@ const CacheManagement = () => {
 							)
 							fireCacheResetTrigger()
 						} catch (error) {
-							console.error(t('cache.error.desc') || '清空缓存时出错：', error)
 							fireCacheResetTrigger()
 						}
 					},

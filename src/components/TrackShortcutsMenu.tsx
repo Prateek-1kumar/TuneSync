@@ -21,13 +21,11 @@ export const TrackShortcutsMenu = ({ track, children, from }: TrackShortcutsMenu
 		(el: { title: string | undefined }) => el.title === track.title,
 	)
 
-	// const { toggleTrackFavorite } = useFavorites()
 	const { activeQueueId } = useQueueStore((state) => state)
 
 	const handlePressAction = (id: string) => {
 		match(id)
 			.with('add-to-favorites', async () => {
-				// toggleTrackFavorite(track)
 				addTracks(track, favorateTracks)
 
 				// if the tracks is in the favorite queue, add it
@@ -69,7 +67,7 @@ export const TrackShortcutsMenu = ({ track, children, from }: TrackShortcutsMenu
 				})
 				setPlaylist(newPlaylist)
 			})
-			.otherwise(() => console.warn(`Unknown menu action ${id}`))
+			.otherwise(() => {})
 	}
 
 	return (

@@ -19,12 +19,12 @@ export async function indexingWebdav(configs: any[]) {
 					const musicFiles = await fetchMusicFilesFromDir(dir, config)
 					total.push(...musicFiles)
 				} catch (error) {
-					console.error(`Error processing directory ${dir}:`, error)
+					// error processing directory
 				}
 			}),
 		)
 	} catch (error) {
-		console.error('Error indexing WebDAV:', error)
+		// error indexing WebDAV
 	}
 
 	return total
@@ -45,7 +45,7 @@ async function fetchMusicFilesFromDir(dir: string, config: any): Promise<any[]> 
 			totalMusicFiles.push(...nestedMusicFiles)
 		}
 	} catch (error) {
-		console.error(`Error processing directory ${dir}:`, error)
+		// error processing directory
 	}
 
 	return totalMusicFiles
@@ -67,7 +67,6 @@ async function processFiles(files: any[], webdavClient: WebDAVClient, config: an
 						...file,
 					}
 				} catch (error) {
-					console.error(`Error processing file ${file.basename}:`, error)
 					return null
 				}
 			}),

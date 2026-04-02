@@ -16,8 +16,6 @@ const PlaylistScreen = () => {
 	const collections = [...playlist, ...albums].find((el) => el.name === albumName)
 
 	if (!playlist) {
-		console.warn(`Playlist ${albumName} was not found!`)
-
 		return <Redirect href={'/(tabs)/albums'} />
 	}
 

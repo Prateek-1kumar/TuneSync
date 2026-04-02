@@ -80,7 +80,6 @@ export function useResumeMetadataExtraction() {
 		} else {
 			tasksQueue = taskQueue
 		}
-		console.log('tasksQueue', tasksQueue.length, queue.length)
 
 		// 取消之前的任务
 		if (abortControllerRef.current) {
@@ -119,7 +118,6 @@ export function useResumeMetadataExtraction() {
 				}
 			} catch (error) {
 				removeTask({ type: 'scraping', body: el })
-				console.error(`Error fetching metadata for ${title}, ${error}`)
 			}
 		})
 

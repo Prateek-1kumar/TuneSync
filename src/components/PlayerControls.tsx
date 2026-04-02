@@ -70,9 +70,7 @@ export const SkipToNextButton = memo(({ iconSize = 30 }) => {
 				await TrackPlayer.skipToNext()
 			} else {
 				const current = queue[targetIndex]
-				const fileExtension = current.basename.split('.').pop() || ''
-				const fileName = `${current.basename}.${fileExtension}`
-				const filePath = `${RNFS.DocumentDirectoryPath}/music_cache/${fileName}`
+				const filePath = `${RNFS.DocumentDirectoryPath}/music_cache/${current.basename}`
 				await reCached(current.originalUrl, current.basename, filePath)
 
 				await TrackPlayer.skip(targetIndex)
@@ -119,9 +117,7 @@ export const SkipToPreviousButton = ({ iconSize = 30 }: PlayerButtonProps) => {
 				await TrackPlayer.skipToPrevious()
 			} else {
 				const current = queue[targetIndex]
-				const fileExtension = current.basename.split('.').pop() || ''
-				const fileName = `${current.basename}.${fileExtension}`
-				const filePath = `${RNFS.DocumentDirectoryPath}/music_cache/${fileName}`
+				const filePath = `${RNFS.DocumentDirectoryPath}/music_cache/${current.basename}`
 				await reCached(current.originalUrl, current.basename, filePath)
 				await TrackPlayer.skip(targetIndex)
 			}

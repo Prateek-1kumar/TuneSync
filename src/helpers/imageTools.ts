@@ -25,7 +25,6 @@ export const resizeBase64Image = async (
 		// 直接返回调整大小后图片的文件路径
 		return [smallImage.uri, bigImage.uri]
 	} catch (error) {
-		console.error('Error resizing image:', error)
 		return []
 	}
 }

@@ -63,11 +63,6 @@ export async function fetchMetadata(
 			...formatedMetadata,
 		}
 	} catch (error) {
-		if (error.message.includes('Aborted')) {
-			console.log('metadata fetch was ' + error.message)
-		} else {
-			console.log('metadata error', error)
-		}
 		return {
 			pendingMeta: true,
 		}

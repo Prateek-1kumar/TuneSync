@@ -25,7 +25,7 @@ export const fallbackMetadataMiddleware: MetadataMiddleware = async (ctx, next) 
 	if (isSupport && !signal.aborted) {
 		const tasks = config?.config?.tasks
 		const configs = {
-			api_key: config?.config?.apiKey || 'cff50af5e282bff668e6439cc947756f',
+			api_key: config?.config?.apiKey || process.env.LASTFM_API_KEY || '',
 			format: 'json',
 		}
 

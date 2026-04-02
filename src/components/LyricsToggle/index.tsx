@@ -7,10 +7,14 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { MaterialIcons } from '@expo/vector-icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 export default (props: { onPress: any; isPlaylistEnable: any }) => {
 	const { onPress, isPlaylistEnable } = props
 	const [enable, setEnable] = useState(isPlaylistEnable)
+
+	useEffect(() => {
+		setEnable(isPlaylistEnable)
+	}, [isPlaylistEnable])
 
 	return (
 		<MaterialIcons
@@ -22,14 +26,15 @@ export default (props: { onPress: any; isPlaylistEnable: any }) => {
 				borderRadius: 10,
 			}}
 			onPress={() => {
-				setEnable(!enable)
+				const newValue = !enable
+				setEnable(newValue)
 				if (onPress) {
-					onPress(!enable)
+					onPress(newValue)
 				}
 			}}
 			name="lyrics"
 			size={24}
-			color={isPlaylistEnable ? 'white' : 'gray'}
+			color={enable ? 'white' : 'gray'}
 		/>
 	)
 }

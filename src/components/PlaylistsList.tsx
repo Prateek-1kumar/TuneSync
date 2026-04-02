@@ -53,7 +53,7 @@ export const PlaylistsList = () => {
 					await TrackPlayer.skip(index, track)
 					await TrackPlayer.play()
 				} catch (error) {
-					console.error('Error while trying to play track:', error)
+					// error playing track
 				} finally {
 					setLoadingTrackId(null) // 加载完成，取消loading标记
 				}

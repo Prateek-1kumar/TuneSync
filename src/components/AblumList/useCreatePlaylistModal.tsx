@@ -19,9 +19,9 @@ export default ({ onClose, setSubmitDisable }) => {
 		}
 		launchImageLibrary(options, (response) => {
 			if (response.didCancel) {
-				console.log('User cancelled image picker')
+				// user cancelled
 			} else if (response.error) {
-				console.log('ImagePicker Error: ', response.error)
+				// image picker error
 			} else if (response.assets && response.assets.length > 0) {
 				setIconUri(response.assets[0].uri)
 			}
@@ -32,7 +32,7 @@ export default ({ onClose, setSubmitDisable }) => {
 		setPlaylistName(el)
 	}
 	const handleReset = () => {
-		setPlaylistName(''), setIconUri('')
+		;(setPlaylistName(''), setIconUri(''))
 		setSubmitDisable(true)
 		Keyboard.dismiss()
 	}
@@ -51,7 +51,7 @@ export default ({ onClose, setSubmitDisable }) => {
 			handleReset()
 			onClose()
 		} catch (error) {
-			console.log(error)
+			// error creating playlist
 		}
 	}
 	const render = () => {

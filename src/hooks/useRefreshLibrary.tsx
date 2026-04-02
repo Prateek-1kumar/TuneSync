@@ -40,7 +40,6 @@ export function useRefreshLibrary() {
 			setLoading({ loading: true, percentage: 0, current: '' })
 			const localIndexing = indexingList.filter((el: { from: string }) => el.from === 'local')
 			const webdavIndexing = indexingList.filter((el: { from: string }) => el.from !== 'local')
-			const start = performance.now()
 			const localMusices = await indexingLocal(localIndexing)
 			const webdavMusices = await indexingWebdav(webdavIndexing)
 			refresh()
@@ -83,8 +82,6 @@ export function useRefreshLibrary() {
 					(_el: any, index: any) => !filteredQueue.includes(index),
 				),
 			)
-			const end = performance.now()
-			console.log('cost is', `${end - start}ms`)
 			await TrackPlayer.remove(filteredQueue)
 
 			updates = []
@@ -93,15 +90,12 @@ export function useRefreshLibrary() {
 				body: musicTotal,
 			})
 			resumeMetadataExtraction(musicTotal)
-			// Process any remaining updates
 			if (updates.length > 0) {
 				batchUpdate(updates)
 				update(updates)
 			}
 			setLoading({ loading: false, percentage: 0, current: '' })
 		} catch (error) {
-			console.log('error', error)
-
 			setLoading({ loading: false, percentage: 0, current: '' })
 		}
 	}, [
@@ -135,7 +129,6 @@ export function useRefreshLibrary() {
 			const webdavIndexing = filterOuterPaths(
 				indexingList.filter((el: { from: string }) => el.from !== 'local'),
 			)
-			const start = performance.now()
 			const localMusices = await indexingLocal(localIndexing)
 			const webdavMusices = await indexingWebdav(webdavIndexing)
 			refresh()
@@ -174,8 +167,6 @@ export function useRefreshLibrary() {
 					(_el: any, index: any) => !filteredQueue.includes(index),
 				),
 			)
-			const end = performance.now()
-			console.log('cost is', `${end - start}ms`)
 			await TrackPlayer.remove(filteredQueue)
 
 			// Clear updates array before starting
@@ -193,8 +184,6 @@ export function useRefreshLibrary() {
 			}
 			setLoading({ loading: false, percentage: 0, current: '' })
 		} catch (error) {
-			console.log('error', error)
-
 			setLoading({ loading: false, percentage: 0, current: '' })
 		}
 	}, [

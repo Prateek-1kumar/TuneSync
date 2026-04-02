@@ -23,7 +23,6 @@ export const PlayerProgressBar = memo(({ style }: ViewProps) => {
 	if (!isSliding.value) {
 		progress.value = duration > 0 ? position / duration : 0
 	}
-	console.log('isSliding', isSliding)
 
 	return (
 		<View style={[style]}>

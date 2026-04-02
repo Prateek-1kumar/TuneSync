@@ -32,7 +32,6 @@ const LocalMedia = memo(() => {
 						PermissionsAndroid.RESULTS.GRANTED
 				)
 			} catch (err) {
-				console.warn(err)
 				return false
 			}
 		}
@@ -57,8 +56,6 @@ const LocalMedia = memo(() => {
 				}
 			})
 		} catch (error) {
-			// stopAccessingResource(encodeURIComponent(directoryUri))
-			console.error('Error reading directory2: ', error)
 			return []
 		}
 	}
@@ -77,16 +74,14 @@ const LocalMedia = memo(() => {
 	useEffect(() => {
 		if (path === '/') {
 			setDirectories(
-				datasourceConfig
-					.find((el) => el.protocol === 'file')
-					.children.map((el) => {
-						return {
-							type: 'directory',
-							basename: getDirectoryName(el),
-							filename: el,
-							from: 'local',
-						}
-					}),
+				(datasourceConfig?.find((el) => el.protocol === 'file')?.children || []).map((el) => {
+					return {
+						type: 'directory',
+						basename: getDirectoryName(el),
+						filename: el,
+						from: 'local',
+					}
+				}),
 			)
 		} else {
 			readDirectoryFiles(path).then((el: any) => {

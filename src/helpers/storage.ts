@@ -17,7 +17,6 @@ class StorageUtil {
 			const value = storage.getString(key)
 			return value != null ? JSON.parse(value) : null
 		} catch (error) {
-			console.error(`Error parsing JSON for key "${key}":`, error)
 			return null
 		}
 	}

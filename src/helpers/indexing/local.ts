@@ -48,8 +48,6 @@ export async function indexingLocal(configs: any[]) {
 	try {
 		return total
 	} catch (error) {
-		// Error saving data
-		console.error('Error saving data:', error)
 		return []
 	}
 }

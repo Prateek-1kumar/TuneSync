@@ -1,10 +1,20 @@
-import { createClient } from 'webdav'
+import { createClient, WebDAVClient } from 'webdav'
 
-export default (props: any) => {
+const clientCache = new Map<string, WebDAVClient>()
+
+export default (props: any): WebDAVClient => {
 	const { location, username, password } = props || {}
+	const cacheKey = `${location}:${username}`
 
-	return createClient(location, {
+	if (clientCache.has(cacheKey)) {
+		return clientCache.get(cacheKey)!
+	}
+
+	const client = createClient(location, {
 		username: username,
 		password: password,
 	})
+
+	clientCache.set(cacheKey, client)
+	return client
 }

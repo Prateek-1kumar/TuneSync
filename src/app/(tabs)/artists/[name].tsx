@@ -14,8 +14,6 @@ const ArtistDetailScreen = () => {
 	const artist = artists.find((artist) => artist.name === artistName.replaceAll('-', '/'))
 
 	if (!artist) {
-		console.warn(`Artist ${artistName} not found!`)
-
 		return <Redirect href={'/(tabs)/artists'} />
 	}
 

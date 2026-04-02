@@ -30,10 +30,8 @@ export async function fetchMetadata(params: FetchParams) {
 
 		return ctx.metadata
 	} catch (error: any) {
-		if (error.message.includes('Aborted')) {
-			console.log('metadata fetch aborted:', error.message)
-		} else {
-			console.log('metadata error', error)
+		if (error.message?.includes('Aborted')) {
+			// aborted, return pending state
 		}
 		return { pendingMeta: true }
 	}

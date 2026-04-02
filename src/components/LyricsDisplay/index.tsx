@@ -143,7 +143,6 @@ const LyricsDisplay: React.FC<LyricsDisplayProps> = ({
 	const timeRef = useRef<NodeJS.Timeout | null>(null)
 	const transYs = useRef(lyrics.map(() => new Animated.Value(0)))
 
-	// 使用 useProgress 获取更频繁的播放时间更新（这里每16.67ms更新一次）
 	const { position } = useProgress(refreshRate ?? 33)
 	useEffect(() => {
 		return () => {
@@ -167,21 +166,24 @@ const LyricsDisplay: React.FC<LyricsDisplayProps> = ({
 		if (!isManualScroll) {
 			const idx = findCurrentLineIndex(lyrics, position)
 			if (idx !== -1 && idx !== currentIndex) {
-				lyrics.forEach((el, index) => {
-					if (transYs.current[index]) {
-						Animated.timing(transYs.current[index], {
-							toValue: (index - currentIndex) * 6,
+				const WINDOW = 5
+				const start = Math.max(0, currentIndex - WINDOW)
+				const end = Math.min(lyrics.length, currentIndex + WINDOW)
+				for (let i = start; i < end; i++) {
+					if (transYs.current[i]) {
+						Animated.timing(transYs.current[i], {
+							toValue: (i - currentIndex) * 6,
 							duration: 200,
 							useNativeDriver: true,
 						}).start(() => {
-							Animated.spring(transYs.current[index], {
+							Animated.spring(transYs.current[i], {
 								toValue: 0,
 								bounciness: 10,
 								useNativeDriver: true,
 							}).start()
 						})
 					}
-				})
+				}
 				if (!isManualSeek) {
 					setCurrentIndex(idx)
 					scrollToIndex(idx)

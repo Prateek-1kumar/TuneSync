@@ -79,11 +79,7 @@ export const MiddlewareConfigPage: React.FC<Props> = () => {
 					<Text style={styles.configLabel}>API Source:</Text>
 					<TouchableOpacity
 						style={styles.apiSourceButton}
-						onPress={() =>
-							Linking.openURL('https://www.last.fm/api').catch((err) =>
-								console.error("Couldn't load page", err),
-							)
-						}
+						onPress={() => Linking.openURL('https://www.last.fm/api').catch(() => {})}
 					>
 						<Text style={styles.apiSourceButtonText}>Last.fm</Text>
 					</TouchableOpacity>

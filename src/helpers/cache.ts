@@ -46,20 +46,16 @@ export const getCachedTrack = async (
 				discretionary: true,
 			}
 
-			RNFS.downloadFile(options)
-			return { trackUrl, CACHE_DIR_BASE, CACHE_DIR: filePath }
-			// const result = await downloadResult.promise
+			const downloadResult = RNFS.downloadFile(options)
+			const result = await downloadResult.promise
 
-			// if (result.statusCode === 200) {
-			// 	console.log('start playing from cache', filePath)
-			// 	return { filePath, CACHE_DIR } // 返回已下载的文件路径
-			// } else {
-			// 	console.error('文件下载失败')
-			// 	return { filePath: trackUrl, CACHE_DIR } // 返回远程 URL 作为回退
-			// }
+			if (result.statusCode === 200) {
+				return { trackUrl, CACHE_DIR_BASE, CACHE_DIR: filePath }
+			} else {
+				return { trackUrl, CACHE_DIR_BASE, CACHE_DIR: trackUrl }
+			}
 		} catch (error) {
-			console.error('缓存音轨时出错:', error)
-			return { trackUrl, CACHE_DIR_BASE, CACHE_DIR: filePath } // 返回远程 URL 作为回退
+			return { trackUrl, CACHE_DIR_BASE, CACHE_DIR: trackUrl }
 		}
 	}
 }
@@ -88,15 +84,12 @@ export const reCached = async (
 			const result = await downloadResult.promise
 
 			if (result.statusCode === 200) {
-				console.log('start playing from cache', filePath)
 				return { filePath, CACHE_DIR_BASE } // 返回已下载的文件路径
 			} else {
-				console.error('文件下载失败')
-				return { filePath: trackUrl, CACHE_DIR_BASE } // 返回远程 URL 作为回退
+				return { filePath: trackUrl, CACHE_DIR_BASE }
 			}
 		} catch (error) {
-			console.error('缓存音轨时出错:', error)
-			return { filePath: trackUrl, CACHE_DIR_BASE } // 返回远程 URL 作为回退
+			return { filePath: trackUrl, CACHE_DIR_BASE }
 		}
 	}
 }
@@ -106,10 +99,10 @@ interface TrackToAdd extends Track {
 }
 
 export const addTrackToPlayer = async (track: Track): Promise<void> => {
-	const trackUrl = await getCachedTrack(track.url, track.basename || track.id)
+	const cached = await getCachedTrack(track.url, track.basename || track.id)
 	const trackToAdd: TrackToAdd = {
 		...track,
-		url: trackUrl,
+		url: cached.CACHE_DIR,
 	}
 
 	await TrackPlayer.add(trackToAdd)

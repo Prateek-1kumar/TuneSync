@@ -103,10 +103,8 @@ const ResourceManage = () => {
 				setIndexingList([...finalIndxingList, ...indexingList])
 			}
 		} catch (err) {
-			if (DocumentPicker.isCancel(err)) {
-				console.log('User cancelled the picker')
-			} else {
-				console.log('Unknown error: ', err)
+			if (!DocumentPicker.isCancel(err)) {
+				// handle picker error
 			}
 		}
 	}, [datasourceConfig, indexingList, setDatasourceConfig, setIndexingList])
@@ -130,11 +128,11 @@ const ResourceManage = () => {
 						await RNFS.copyFile(pickedFilePath, destinationPath)
 					}
 				} catch (error) {
-					console.error('Error ensuring directory exists:', error)
+					// error ensuring directory
 				}
 			}
 		} catch (error) {
-			console.error('Error reading directory files:', error)
+			// error reading directory
 		}
 	}
 

@@ -12,14 +12,10 @@ const AboutPage = () => {
 	const handlePress = (menu) => {
 		switch (menu) {
 			case 'report':
-				Linking.openURL('https://github.com/JackZhen1324/TuneSync/issues').catch((err) =>
-					console.error("Couldn't load page", err),
-				)
+				Linking.openURL('https://github.com/JackZhen1324/TuneSync/issues').catch(() => {})
 				break
 			case 'website':
-				Linking.openURL('https://github.com/JackZhen1324/TuneSync').catch((err) =>
-					console.error("Couldn't load page", err),
-				)
+				Linking.openURL('https://github.com/JackZhen1324/TuneSync').catch(() => {})
 				break
 			case 'privacy':
 				router.push('/setting/about/privacy')

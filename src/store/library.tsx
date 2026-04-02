@@ -81,16 +81,10 @@ export const useLibraryStore = create<LibraryState>()(
 						tracksMap: {},
 					})
 				},
-				setTracks: async (tracks: Record<string, TrackWithPlaylist>) => {
+				setTracks: (tracks: Record<string, TrackWithPlaylist>) => {
 					set({
 						tracks: Object.values(tracks),
 						tracksMap: tracks,
-					})
-					set((state: any) => {
-						return {
-							tracks: Object.values(tracks),
-							tracksMap: tracks,
-						}
 					})
 				},
 				toggleTrackFavorite: (track: Track) =>

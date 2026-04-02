@@ -64,7 +64,6 @@ export function useLrcLoader(activeTrackObj: any = { source: {} }) {
 				setLyrics(parsed)
 			}
 		} catch (err) {
-			console.warn('获取本地 LRC 失败:', err)
 			setLyrics([{ line: '暂无歌词', time: 0 }])
 		}
 	}
